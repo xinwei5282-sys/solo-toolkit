@@ -1,0 +1,16 @@
+{
+  "name": "solo-toolkit",
+  "version": "1.0.0",
+  "description": "Solo founder toolkit for Claude Code — design intelligence, business analytics, market research, startup metrics, and development workflows",
+  "keywords": [
+    "claude-code",
+    "skill",
+    "solo-founder",
+    "design",
+    "business-analytics",
+    "market-research",
+    "startup-metrics",
+    "workflows"
+  ],
+  "license": "MIT"
+}

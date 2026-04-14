@@ -74,6 +74,23 @@ solo-toolkit/
         └── safety.md
 ```
 
+## Example: Local AI System
+
+This repository now also includes an example configuration snapshot under:
+
+```bash
+examples/local-ai-system/
+```
+
+It captures a layered local AI setup with:
+
+- Claude command roles
+- Hermes-style routing skills
+- Skills registry and audit workflow
+- Structured knowledge wikis for agent systems and trading thesis
+
+This example is meant as a reference architecture, not as the runtime source of truth.
+
 ## Pair with OpenClaw Agents
 
 This skill provides **tools**. For **roles** (PM, Developer, Designer, etc.), pair with [OpenClaw](https://openclaw.ai) agents that share personality, methodology, and cross-project experience.

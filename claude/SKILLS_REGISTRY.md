@@ -173,6 +173,13 @@
 
 ## 四、全局执行技能层
 
+### `darwin-skill`（达尔文）
+- 位置：`~/.claude/skills/darwin-skill/` → symlink → `~/.codex/skills/darwin-skill/`
+- 类型：SKILL.md 质量优化工具，Claude 和 Codex 共用同一份
+- 职责：8维度评分（结构60 + 效果40）、hill-climbing 优化循环、git ratchet 回滚、成果卡片生成
+- 触发词：优化skill、skill评分、达尔文、darwin、skill质量检查
+- 注意：results.tsv 和 test-prompts.json 存放在 skill 目录内
+
 ### `solo-toolkit`
 - 位置：`~/.claude/skills/solo-toolkit`
 - 类型：重技能集合

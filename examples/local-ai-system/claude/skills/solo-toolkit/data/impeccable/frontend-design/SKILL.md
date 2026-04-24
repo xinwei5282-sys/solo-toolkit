@@ -1,6 +1,6 @@
 ---
 name: frontend-design
-description: Create distinctive, production-grade frontend interfaces with high design quality. Generates creative, polished code that avoids generic AI aesthetics. Use when the user asks to build web components, pages, artifacts, posters, or applications, or when any design skill requires project context.
+description: "Use to design and build polished frontend UI for landing pages, dashboards, web apps, components, marketing sites, and interactive screens with production-grade visual quality."
 license: Apache 2.0. Based on Anthropic's frontend-design skill. See NOTICE.md for attribution.
 ---
 
@@ -19,10 +19,44 @@ Individual skills may require additional context — check the skill's preparati
 
 **CRITICAL**: You cannot infer this context by reading the codebase. Code tells you what was built, not who it's for or what it should feel like. Only the creator can provide this context.
 
+## Working Modes
+
+Choose the lightest mode that can still produce intentional design:
+
+- **Full direction mode**: use for new pages, major redesigns, or blank-canvas work. Requires explicit audience, use case, and tone.
+- **Guided polish mode**: use for improving an existing feature, page, or component when the current product context is already reasonably clear from the user request or project instructions.
+
+In guided polish mode, do not block on perfect brand strategy. You still need enough context to avoid generic output, but you can proceed with a narrower goal: improve the existing interface while preserving the current product lane.
+
 **Gathering order:**
 1. **Check current instructions (instant)**: If your loaded instructions already contain a **Design Context** section, proceed immediately.
-2. **Check .impeccable.md (fast)**: If not in instructions, read `.impeccable.md` from the project root. If it exists and contains the required context, proceed.
-3. **Run teach-impeccable (REQUIRED)**: If neither source has context, you MUST run /teach-impeccable NOW before doing anything else. Do NOT skip this step. Do NOT attempt to infer context from the codebase instead.
+2. **Check the user request itself (instant)**: If the request already gives enough context for full direction mode or guided polish mode, proceed immediately.
+3. **Check .impeccable.md (fast)**: If not in instructions or the request, read `.impeccable.md` from the project root. If it exists and contains the required context, proceed.
+4. **Run teach-impeccable (REQUIRED)**: If none of the above sources provide enough context, you MUST run /teach-impeccable NOW before doing anything else. Do NOT skip this step. Do NOT attempt to infer context from the codebase instead.
+
+## Fast Path
+
+You do **not** need to stop for more context when the user has already given enough to make strong design decisions.
+
+Proceed immediately if the request already specifies most of the following:
+
+- product type or surface, such as landing page, dashboard, settings page, pricing page, list view, or onboarding
+- target user or business context
+- desired feeling, such as premium, calm, editorial, enterprise, playful, or less AI-generated
+- scope, such as polish, redesign, or build from scratch
+
+If one element is still fuzzy but the intended lane is obvious, proceed and state the assumption briefly instead of stalling the task.
+
+## When to stop and gather more context
+
+Pause for more context only when the missing information would materially change the visual direction, such as:
+
+- consumer vs enterprise tension
+- playful vs serious brand expression
+- dashboard polish vs full product repositioning
+- marketing page vs application UI ambiguity
+
+If the task is a polish request on an existing product surface, prefer guided polish mode over mandatory re-discovery.
 
 ---
 
@@ -138,6 +172,32 @@ Review the DON'T guidelines above—they are the fingerprints of AI-generated wo
 
 ---
 
+## 使用方式
+
+当用户说下面这些话时，应优先加载本 skill：
+
+- “帮我做一个更像真实产品的页面”
+- “把这个后台界面做得更高级一点”
+- “优化这个 dashboard / 看板 / 列表页的视觉和交互”
+- “做一个不那么像 AI 的原型 / 展示页”
+- “这个页面要有更强的设计感和产品感”
+- “把这个组件做得更像产品级界面”
+- “帮我把这个界面从能用改成好用、好看、像上线产品”
+
+### 强触发场景
+
+只要用户正在做以下类型的事情，就应优先评估并考虑加载本 skill，而不是先直接进入通用实现：
+
+- 创建或重做 web 页面、组件、看板、仪表盘、原型、展示页
+- 优化视觉层级、布局节奏、字体、颜色、动效、交互细节
+- 需要明显提升“产品感 / 高级感 / 设计感 / 非 AI 味”
+- 需要在功能正确之外，把界面做得更像可上线的真实产品
+- 需要在响应式、可访问性、性能约束下同时兼顾审美
+
+如果任务涉及“把功能做出来”和“把界面做漂亮”，优先先用本 skill 定义设计方向，再进入实现。
+
+---
+
 ## Implementation Principles
 
 Match implementation complexity to the aesthetic vision. Maximalist designs need elaborate code with extensive animations and effects. Minimalist or refined designs need restraint, precision, and careful attention to spacing, typography, and subtle details.
@@ -145,3 +205,33 @@ Match implementation complexity to the aesthetic vision. Maximalist designs need
 Interpret creatively and make unexpected choices that feel genuinely designed for the context. No design should be the same. Vary between light and dark themes, different fonts, different aesthetics. NEVER converge on common choices across generations.
 
 Remember: the model is capable of extraordinary creative work. Don't hold back—show what can truly be created when thinking outside the box and committing fully to a distinctive vision.
+
+## Checkpoints
+
+Pause and confirm with the user before:
+
+- materially changing the brand expression or visual direction
+- choosing between multiple plausible aesthetic directions
+- turning a “polish this” request into a full redesign
+
+## Output Format
+
+```md
+## Frontend Design Direction
+- Audience / use case:
+- Aesthetic direction:
+- Hero move:
+- Key typography / color / layout choices:
+- Constraints:
+```
+
+## Fallback
+
+If design context is missing or ambiguous:
+
+- use guided polish mode if the product lane is already clear
+- gather only the missing context that would change the design direction
+- avoid inferring brand personality from code alone
+- make only the smallest safe visual decisions until direction is confirmed
+
+Principle: **distinctive execution depends on explicit intent.**

@@ -7,6 +7,20 @@ argument-hint: "[target]"
 
 Identify and fix performance issues to create faster, smoother user experiences.
 
+This is a **bottleneck-first skill**. Its job is to find the biggest user-visible slowdown, fix that first, and avoid getting lost in low-signal micro-optimizations.
+
+## Triage First
+
+Before proposing fixes, classify the problem:
+
+- **Load problem**: slow first paint, long startup, heavy bundles
+- **Interaction problem**: lag on click, typing, tab switch, drag, or filter
+- **Scroll / animation problem**: jank, dropped frames, stutter
+- **Data problem**: too many rows, heavy rendering, expensive transforms
+- **Network problem**: too many requests, large payloads, poor caching
+
+If you cannot name the dominant category, you are not ready to optimize yet.
+
 ## Assess Performance Issues
 
 Understand current performance and identify problems:
@@ -29,6 +43,18 @@ Understand current performance and identify problems:
 ## Optimization Strategy
 
 Create systematic improvement plan:
+
+## Optimization Workflow
+
+Follow this order:
+
+1. measure the current symptom
+2. identify the dominant bottleneck category
+3. fix the highest-leverage issue first
+4. re-measure
+5. only continue if the next bottleneck is still user-visible
+
+Do not treat “possible optimization opportunities” as “must-fix items.”
 
 ### Loading Performance
 
@@ -242,6 +268,22 @@ const observer = new IntersectionObserver((entries) => {
 
 **IMPORTANT**: Measure on real devices with real network conditions. Desktop Chrome with fast connection isn't representative.
 
+## Priority Order
+
+Default optimization order:
+
+1. Fix the largest user-visible bottleneck
+2. Remove obviously wasteful work
+3. Reduce recurring runtime cost
+4. Improve perceived performance
+5. Leave micro-optimizations for last
+
+Examples:
+
+- If LCP is bad because hero media is huge, do not start with memoization.
+- If typing is laggy because filtering 10k rows blocks the main thread, do not start with image compression.
+- If animation jank comes from layout properties, do not start with bundle splitting.
+
 **NEVER**:
 - Optimize without measuring (premature optimization)
 - Sacrifice accessibility for performance
@@ -250,6 +292,7 @@ const observer = new IntersectionObserver((entries) => {
 - Lazy load above-fold content
 - Optimize micro-optimizations while ignoring major issues (optimize the biggest bottleneck first)
 - Forget about mobile performance (often slower devices, slower connections)
+- Continue optimizing once the remaining issues are no longer perceptible to users
 
 ## Verify Improvements
 
@@ -262,4 +305,43 @@ Test that optimizations worked:
 - **No regressions**: Ensure functionality still works
 - **User perception**: Does it *feel* faster?
 
+## Stop Rule
+
+Stop when one of these becomes true:
+
+- the main user-visible bottleneck is gone
+- the next fixes are low-confidence or low-impact
+- further gains require risky architectural work the user did not ask for
+
+Optimization is finished when the experience is fast enough for the user goal, not when every metric is perfect.
+
 Remember: Performance is a feature. Fast experiences feel more responsive, more polished, more professional. Optimize systematically, measure ruthlessly, and prioritize user-perceived performance.
+
+## Checkpoints
+
+Pause and confirm before:
+
+- trading product capability for speed in a user-visible way
+- introducing risky architectural changes for marginal gains
+- optimizing without measuring the relevant bottleneck first
+
+## Output Format
+
+```md
+## Optimization Summary
+- Bottleneck found:
+- Changes made:
+- Before / after impact:
+- User-perceived improvement:
+- Risks / follow-up:
+```
+
+## Fallback
+
+If measurement is incomplete:
+
+- fix obvious expensive patterns first
+- prefer low-risk wins before deep rewrites
+- state clearly what remains unverified
+
+Principle: **measure first when possible, but never confuse activity with speed.**

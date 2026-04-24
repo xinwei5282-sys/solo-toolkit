@@ -352,3 +352,32 @@ Test thoroughly with edge cases:
 - **Empty**: Remove all data, test empty states
 
 Remember: You're hardening for production reality, not demo perfection. Expect users to input weird data, lose connection mid-flow, and use your product in unexpected ways. Build resilience into every component.
+
+## Checkpoints
+
+Pause and confirm before:
+
+- adding complex error handling patterns that change product behavior materially
+- introducing localization or i18n machinery beyond the current scope
+- widening the task from hardening one flow into a broad platform rewrite
+
+## Output Format
+
+```md
+## Hardening Summary
+- Edge cases covered:
+- Error / overflow / i18n fixes:
+- States added or improved:
+- Remaining risk:
+- Follow-up if needed:
+```
+
+## Fallback
+
+If the full failure surface is unknown:
+
+- harden the most user-visible failure modes first
+- prefer resilient layout and messaging improvements before deep architecture changes
+- document what remains untested
+
+Principle: **protect the user path first, then broaden resilience outward.**

@@ -122,3 +122,32 @@ Create a systematic plan:
 - **Responsiveness**: Does the layout adapt gracefully across screen sizes?
 
 Remember: Space is the most underused design tool. A layout with the right rhythm and hierarchy can make even simple content feel polished and intentional.
+
+## Checkpoints
+
+Pause and confirm before:
+
+- changing information architecture rather than just layout
+- collapsing or expanding major sections in ways that change scope
+- rewriting dense data layouts into editorial layouts
+
+## Output Format
+
+```md
+## Arrangement Summary
+- Main layout problem:
+- Spacing / hierarchy strategy:
+- Major structural changes:
+- Rhythm improvements:
+- Risks / follow-up:
+```
+
+## Fallback
+
+If the best layout direction is unclear:
+
+- strengthen grouping and spacing before changing IA
+- reduce monotony before introducing radical asymmetry
+- keep the reading flow obvious
+
+Principle: **first make the layout legible, then make it elegant.**

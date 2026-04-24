@@ -69,3 +69,31 @@ Write this section to `.impeccable.md` in the project root. If the file already 
 Then ask the user directly to clarify what you cannot infer. whether they'd also like the Design Context appended to .github/copilot-instructions.md. If yes, append or update the section there as well.
 
 Confirm completion and summarize the key design principles that will now guide all future work.
+
+## Checkpoints
+
+Pause and confirm before:
+
+- overwriting an existing `## Design Context` with a materially different direction
+- appending design context into `.github/copilot-instructions.md`
+- persisting weak guesses as permanent guidance
+
+## Output Format
+
+```md
+## Teach Impeccable Summary
+- What was inferred from code:
+- What the user clarified:
+- Where design context was written:
+- Core design principles:
+```
+
+## Fallback
+
+If the user cannot answer everything:
+
+- record only high-confidence context
+- mark open questions explicitly
+- avoid inventing brand strategy
+
+Principle: **persistent guidance should be specific, but only where it is real.**

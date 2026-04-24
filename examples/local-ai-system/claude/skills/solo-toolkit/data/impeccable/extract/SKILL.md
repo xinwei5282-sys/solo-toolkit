@@ -7,6 +7,23 @@ argument-hint: "[target]"
 
 Identify reusable patterns, components, and design tokens, then extract and consolidate them into the design system for systematic reuse.
 
+Use this when the right move is to turn repeated UI decisions into shared system assets, not just to refactor code for cleanliness.
+
+## Extraction Workflow
+
+Follow this order:
+
+1. identify repeated patterns or values
+2. decide whether they deserve extraction now
+3. choose the correct shared level:
+   - token
+   - primitive
+   - reusable component
+   - documented pattern
+4. design the shared API and naming
+5. migrate existing usages
+6. document and validate the result
+
 ## Discover
 
 Analyze the target area to identify extraction opportunities:
@@ -42,6 +59,44 @@ Create a systematic extraction plan:
 - **Migration path**: How to refactor existing uses to consume the new shared versions
 
 **IMPORTANT**: Design systems grow incrementally. Extract what's clearly reusable now, not everything that might someday be reusable.
+
+Before editing, explicitly write down:
+
+- what is being extracted
+- why it deserves extraction now
+- where the shared version should live
+- what old implementations will be retired
+
+## Choose The Shared Level
+
+Route each opportunity to the smallest shared layer that solves the real problem:
+
+- **Token**: extract when the repeated thing is a value or rule, such as color, spacing, radius, typography, shadow, or motion timing
+- **Primitive**: extract when the repeated thing is a low-level building block with stable structure, such as button, input, badge, avatar, stack, or surface
+- **Reusable component**: extract when the repeated thing is a composed UI pattern with a clear job and repeated usage, such as stat card, section header, empty state, filter bar, or settings row
+- **Documented pattern**: extract when teams need a shared recipe or usage guidance, but the implementation should stay local for now
+
+Use these tie-breakers:
+
+- if the duplication is mostly visual values, prefer tokens first
+- if the duplication is mostly structure, props, and accessibility behavior, prefer a primitive or reusable component
+- if the pattern is still evolving across contexts, document it before freezing it into code
+- if a shared abstraction would need many escape hatches on day one, it is probably too early
+
+## When Not To Extract
+
+Do not extract just because two things look similar.
+
+Avoid extraction when:
+
+- the pattern appears only once or twice with no near-term reuse
+- the implementations share appearance but not responsibility
+- the abstraction would hide meaningful product differences
+- the likely shared API is vague, bloated, or full of boolean switches
+- the design system source of truth is still unstable
+- the migration cost is high but the consistency win is small
+
+Prefer to wait, document, or only extract tokens when the reuse signal is still weak.
 
 ## Extract & Enrich
 
@@ -79,6 +134,17 @@ Replace existing uses with the new shared versions:
 - **Test thoroughly**: Ensure visual and functional parity
 - **Delete dead code**: Remove the old implementations
 
+## Stop Rule
+
+Stop the extraction pass when:
+
+- the highest-value repeated pattern has been consolidated
+- the next candidate would require speculative API design
+- the remaining differences are intentional product distinctions
+- the cleanup starts producing more indirection than clarity
+
+Do not keep extracting just because more similarities can be found. The goal is a cleaner system, not a larger one.
+
 ## Document
 
 Update design system documentation:
@@ -89,3 +155,35 @@ Update design system documentation:
 - Update any Storybook or component catalog
 
 Remember: A good design system is a living system. Extract patterns as they emerge, enrich them thoughtfully, and maintain them consistently.
+
+## Checkpoints
+
+Pause and confirm before:
+
+- creating a new design-system area where none exists
+- introducing a shared API with broad usage impact
+- deleting several bespoke implementations with uncertain parity
+- collapsing patterns that look similar but serve different product jobs
+
+## Output Format
+
+```md
+## Extraction Summary
+- Pattern extracted:
+- Shared level:
+- New location:
+- Usages migrated:
+- Old code removed:
+- Risks / follow-up:
+```
+
+## Fallback
+
+If extraction value is unclear:
+
+- extract tokens before extracting full components
+- document the pattern before codifying it
+- prefer reversible refactors over system-wide rewrites
+- leave the implementation local and note the reuse signal to revisit later
+
+Principle: **extract proven reuse, not imagined reuse.**

@@ -9,15 +9,37 @@ argument-hint: "[area (feature, page, component...)]"
 
 Invoke /frontend-design — it contains design principles, anti-patterns, and the **Context Gathering Protocol**. Follow the protocol before proceeding — if no design context exists yet, you MUST run /teach-impeccable first.
 
+Use the lightest preparation that fits the audit:
+
+- for **full audits** or any audit that includes anti-pattern review, load `/frontend-design`
+- for **focused technical audits** such as accessibility, performance, or responsive checks, do not block on full design-context setup unless the missing design context would change the finding
+- only run `/teach-impeccable` if the audit requires design-direction context and that context is genuinely missing
+
 ---
 
 Run systematic **technical** quality checks and generate a comprehensive report. Don't fix issues — document them for other commands to address.
 
 This is a code-level audit, not a design critique. Check what's measurable and verifiable in the implementation.
 
+## Audit Modes
+
+Do not default to the heaviest possible report. Choose the smallest useful audit shape:
+
+- **Triage mode**: default. Surface the highest-confidence, highest-impact issues first, with a compact scorecard and prioritized actions.
+- **Full audit mode**: use when the user explicitly wants a comprehensive review, score breakdown, or release gate report.
+- **Focused mode**: use when the user names one dimension such as accessibility, performance, theming, or responsive behavior.
+
+Default to **triage mode** unless the user asks for breadth.
+
 ## Diagnostic Scan
 
-Run comprehensive checks across 5 dimensions. Score each dimension 0-4 using the criteria below.
+Run the scan that matches the selected mode:
+
+- **triage mode**: scan all 5 dimensions, but report only the highest-signal issues
+- **full audit mode**: scan all 5 dimensions and produce the complete report
+- **focused mode**: scan only the named dimension or tightly related dimensions; do not silently expand to a full audit
+
+Score each scanned dimension 0-4 using the criteria below.
 
 ### 1. Accessibility (A11y)
 
@@ -71,6 +93,15 @@ Check against ALL the **DON'T** guidelines in the frontend-design skill. Look fo
 
 ## Generate Report
 
+In **triage mode**, lead with:
+
+1. anti-patterns verdict
+2. top P0/P1 findings only
+3. compact scorecard
+4. recommended commands
+
+Expand into the full per-dimension report only when the issue set is broad enough to justify it or the user explicitly asks for the full audit.
+
 ### Audit Health Score
 
 | # | Dimension | Score | Key Finding |
@@ -110,6 +141,8 @@ For each issue, document:
 - **Recommendation**: How to fix it
 - **Suggested command**: Which command to use (prefer: /animate, /quieter, /optimize, /adapt, /clarify, /distill, /delight, /onboard, /normalize, /audit, /harden, /polish, /extract, /bolder, /arrange, /typeset, /critique, /colorize, /overdrive)
 
+Only include P2/P3 findings when they meaningfully affect ship quality or reveal a systemic pattern. Do not pad the report with harmless nits.
+
 ### Patterns & Systemic Issues
 
 Identify recurring problems that indicate systemic gaps rather than one-off mistakes:
@@ -145,3 +178,23 @@ After presenting the summary, tell the user:
 - Report false positives without verification
 
 Remember: You're a technical quality auditor. Document systematically, prioritize ruthlessly, cite specific code locations, and provide clear paths to improvement.
+
+## Checkpoints
+
+Before finalizing the audit:
+
+- verify the highest-severity findings are real, not speculative
+- collapse duplicate issues into systemic findings where appropriate
+- keep the report actionable rather than exhaustive noise
+- prefer a short high-signal report over a long low-signal one
+
+## Fallback
+
+If some checks cannot be run:
+
+- state exactly what was not verified
+- avoid overstating certainty
+- prioritize findings backed by direct evidence
+- if evidence is too thin for scoring, give a scoped risk review instead of pretending a full audit was completed
+
+Principle: **an incomplete honest audit is better than a comprehensive hallucinated one.**

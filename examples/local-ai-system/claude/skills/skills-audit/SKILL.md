@@ -1,6 +1,6 @@
 ---
 name: skills-audit
-description: 周期性审计本地 skills 体系，检查重复能力、边界模糊、失效技能、缺失沉淀，并输出结构化审计报告。适用于每周/每月治理本地 Claude、OpenClaw、项目私有 skills。
+description: 周期性审计本地 skills 体系，检查重复能力、边界模糊、失效技能、命名不清、触发不稳、缺失沉淀，并输出结构化治理报告；适合清理和优化全局 skill 库。
 user-invocable: true
 argument-hint: "[审计范围，可选]"
 ---

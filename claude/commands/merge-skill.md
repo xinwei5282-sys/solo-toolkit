@@ -1,5 +1,7 @@
 # 合并 Skill 到 Solo Toolkit
 
+> 这是内部维护命令，不是日常角色入口。默认不建议从主菜单暴露，只在维护 skill 体系时使用。
+
 将新安装的 Skill 自动合并进 solo-toolkit，保持只有一个 Skill 目录。
 
 ## 用法

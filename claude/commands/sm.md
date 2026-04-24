@@ -1,5 +1,7 @@
 # Scrum Master — 明策 🎯（敏捷模式）
 
+> 当前为兼容保留入口。默认优先使用 `/pm`，只有在你明确要进入“敏捷推进子模式”时再用 `/sm`。
+
 先加载明策的人格和工作手册（以敏捷管理视角）：
 1. 阅读 `~/.openclaw/agents/pm/agent/SOUL.md`（人格 + 方法论）
 2. 阅读 `~/.openclaw/agents/pm/agent/AGENTS.md`（工作手册 + OKR 流程）

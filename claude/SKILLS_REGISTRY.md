@@ -52,11 +52,12 @@
 - 不负责：直接主导编码和视觉定稿
 - 依赖：`~/.openclaw/agents/pm/agent/*`
 
-### `ui`
+### `ui`（绘心）
 - 入口：`~/.claude/commands/ui.md`
 - 主职责：页面结构、交互体验、视觉系统、设计规范
 - 不负责：业务优先级和代码实现细节
 - 依赖：`~/.openclaw/agents/design/agent/*`
+- 注意：command 叫 `ui`，OpenClaw agent 叫 `design`，两者是同一角色，命名不一致属历史遗留
 
 ### `arch`
 - 入口：`~/.claude/commands/arch.md`
@@ -278,11 +279,18 @@
 - 职责：通用长期知识
 - 适合：经验、原则、踩坑、方法、决策记录
 
-### `~/knowledge-wikis/`
-- 当前主题：
-  - `agent-systems`
-  - `trading-thesis`
-- 职责：结构化、交叉链接、持续编译的主题知识库
+### `~/knowledge-wikis/`（Obsidian Vault — 日常工作笔记）
+- 路径：`~/knowledge-wikis/wiki/`
+- 管理方式：Obsidian，人工维护
+- 适合：日报、项目文档（SCRM）、开发踩坑、技术决策
+- **不适合**：需要 AI 持续编译和交叉链接的主题研究
+- 当前分区：`日报/`、`开发问题总结/`、`项目/scrm产品/`
+
+### `~/ai-system-config/knowledge-wikis/`（llm-wiki — 结构化主题研究）
+- 管理方式：`llm-wiki` skill，AI 编译 + 交叉链接
+- 适合：长期主题研究、多来源编译、持续查询
+- 当前主题：`agent-systems`、`trading-thesis`
+- **不适合**：日常笔记、项目过程文档
 
 ---
 

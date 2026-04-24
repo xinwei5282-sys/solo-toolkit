@@ -107,6 +107,13 @@
 - 典型触发：方向不清、范围失控、"全都要"类需求
 - 依赖：`~/.openclaw/agents/lobster/agent/*`
 
+### `trader`（操盘）
+- 入口：`~/.claude/commands/trader.md`
+- 主职责：量化策略执行、A 股交易分析、仓位管理、策略回测、绩效复盘
+- 不负责：非系统化的直觉交易，不越风控红线
+- 典型触发：盘前准备、策略信号、仓位调整、回测、周报
+- 依赖：`~/.openclaw/agents/trader/agent/*`
+
 ---
 
 ### 兼容性入口（次级，非默认）
@@ -150,6 +157,17 @@
 ### `agent-architecture-routing`
 - 类型：轻量路由 skill
 - 用途：识别 agent 架构、roles、skills、tooling、memory 设计类请求
+
+### `routing`（路由层目录索引）
+- 位置：`~/.claude/skills/routing/DESCRIPTION.md`
+- 类型：文档索引，无 SKILL.md，不可直接激活
+- 用途：描述路由层整体架构，列出所有路由 skill 清单
+- 注意：需直接调用上方具体路由 skill，不要尝试 `/routing`
+
+### `connect-chrome`（别名）
+- 位置：`~/.claude/skills/connect-chrome/`
+- 类型：`open-gstack-browser` 的向后兼容别名，两者内容完全相同
+- 推荐：使用 `/open-gstack-browser`，此别名保留兼容
 
 ---
 

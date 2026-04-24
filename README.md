@@ -4,6 +4,8 @@
 
 ## Included
 
+- `MASTER_ARCHITECTURE.md`
+  - 本地 AI 系统统一架构蓝图与 source of truth 说明
 - `claude/commands/`
   - 本地角色入口
 - `claude/skills/`

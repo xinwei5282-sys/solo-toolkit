@@ -9,10 +9,6 @@
 3. 它负责什么，不负责什么？
 4. 与哪些能力互补，和哪些能力容易重叠？
 
-命令入口分级见：
-
-- `claude/COMMANDS_REGISTRY.md`
-
 ---
 
 ## 一、分层模型
@@ -66,24 +62,63 @@
 - 入口：`~/.claude/commands/arch.md`
 - 主职责：架构设计、技术选型、非功能需求、风险评估
 - 不负责：业务代码实现
+- 依赖：`~/.openclaw/agents/arch/agent/*`（C4 模型、ADR、ATAM 方法论）
 
-### `lobster`
+### `main`（晓秘）
+- 入口：`~/.claude/commands/main.md`
+- 主职责：老板与 Agent 团队的总协调，任务路由与进度跟进
+- 不负责：替代各专业角色的执行
+- 依赖：`~/.openclaw/workspace/SOUL.md`、`~/.openclaw/workspace/AGENTS.md`
+
+### `content`（墨言）
+- 入口：`~/.claude/commands/content.md`
+- 主职责：内容规划、文章撰写、SEO 优化
+- 依赖：`~/.openclaw/agents/content/agent/*`
+
+### `finance`（算盘）
+- 入口：`~/.claude/commands/finance.md`
+- 主职责：账务、财务分析、税务规划
+- 依赖：`~/.openclaw/agents/finance/agent/*`
+
+### `growth`（拓客）
+- 入口：`~/.claude/commands/growth.md`
+- 主职责：用户获取、全漏斗增长、渠道实验
+- 依赖：`~/.openclaw/agents/growth/agent/*`
+
+### `legal`（律己）
+- 入口：`~/.claude/commands/legal.md`
+- 主职责：合同审查、合规风险识别、隐私政策
+- 依赖：`~/.openclaw/agents/legal/agent/*`
+
+### `ops`（守卫）
+- 入口：`~/.claude/commands/ops.md`
+- 主职责：系统巡检、告警处理、Agent 系统稳定运行
+- 依赖：`~/.openclaw/agents/ops/agent/*`
+
+### `support`（暖客）
+- 入口：`~/.claude/commands/support.md`
+- 主职责：用户问题解答、反馈收集与汇总
+- 依赖：`~/.openclaw/agents/support/agent/*`
+
+### `lobster`（龙虾）
 - 入口：`~/.claude/commands/lobster.md`
-- 主职责：方向挑战、范围收敛、优先级去水分、假问题识别
-- 不负责：完整执行、正式架构设计、完整 PRD 撰写、具体实现
+- 主职责：战略挑战，拆假问题、伪复杂度，强制取舍
+- 不负责：完整执行，不取代专业角色
+- 典型触发：方向不清、范围失控、"全都要"类需求
 - 依赖：`~/.openclaw/agents/lobster/agent/*`
 
-### `main`
-- 入口：`~/.claude/commands/main.md`
-- 主职责：老板总入口、任务首轮判断、角色分派、跨角色协调
-- 不负责：替代各专业角色做完整专业判断
-- 依赖：`~/.openclaw/workspace/*`
+---
 
-### 其他角色入口
-- `ba.md`
-- `sm.md`
-- `hindsight.md`
-- `merge-skill.md`
+### 兼容性入口（次级，非默认）
+
+以下命令保留兼容性，但**不是日常主入口**，优先用上方的主角色代替：
+
+| 命令 | 原职责 | 推荐替代 |
+|------|--------|---------|
+| `ba` | 业务分析子模式 | 用 `/pm`（明策已包含 BA 视角） |
+| `sm` | 敏捷推进子模式 | 用 `/pm`（明策已包含 SM 视角） |
+| `hindsight` | 记忆系统运维 | 由 `main` 或系统维护流程调用 |
+| `merge-skill` | skill 合并维护 | 内部维护命令，按需手工调用 |
 
 ---
 
@@ -189,21 +224,17 @@
 | `webapp-testing` | Playwright Web 测试 | 偏浏览器自动化 |
 | `zombie-code-cleaner` | 清理无用代码 | 偏代码资产治理 |
 
-### `sphere-scrm/.claude/skills`
-- 典型技能：
-  - `dev-workflow`
-  - `quick-dev`
-  - `code-reviewer`
-  - `reactive-fetch-list`
+### `sphere-scrm/.claude/skills`（SCRM 产品设计项目）
+
+项目性质：PRD 文档 + HTML 交互原型，技术栈为 Tailwind CDN + 原生 JS。
 
 #### 详细清单
 
 | Skill | 主职责 | 备注 |
 |------|--------|------|
-| `code-reviewer` | 项目规范代码审查 | 偏合规性与问题发现 |
-| `dev-workflow` | 标准开发流程 | 新功能、需求分析优先加载 |
-| `quick-dev` | 轻量开发和修复 | 不需要完整流程时使用 |
-| `reactive-fetch-list` | reactive + fetch 列表页规范 | 强项目特定模式 |
+| `dev-workflow` | PRD 撰写 + HTML 原型标准开发流程 | 新功能、新需求优先加载 |
+| `quick-dev` | 轻量改动（原型细节、小功能补充） | 不需要完整 dev-workflow 时使用 |
+| `code-reviewer` | HTML 原型 + PRD 文档交付前审查 | 偏视觉一致性、交互完整性、需求清晰度 |
 
 ### 其他独立技能
 - `~/.openclaw/skills/daily-stock-analysis`
@@ -235,15 +266,9 @@
 ### 1. 先判定角色
 
 - 实现、调试、重构 → `dev`
-- 业务、需求、优先级 → `pm` / `ba`
+- 业务、需求、优先级 → `pm`（BA 类分析也由 pm 主导）
 - 视觉、交互、体验 → `ui`
 - 架构、选型、边界 → `arch`
-
-在这一步之前，先过一个总问题：
-
-- 当前问题到底是执行问题，还是方向/范围/优先级问题？
-
-如果更像后者，先引入 `lobster` 做一次挑战，再决定主角色。
 
 ### 2. 再判定是否需要项目私有 skill
 
@@ -265,12 +290,6 @@
 - 步骤顺序明确
 - 可验证
 - 与某一角色或项目强关联
-
-### 推荐默认路由
-
-建议总入口顺序固定为：
-
-`main -> hermes-loop -> 是否调用 lobster -> arch/pm/dev/ui -> 具体 skill/workflow -> knowledge routing`
 
 ---
 
@@ -329,8 +348,9 @@
 | `pm` | 需求、PRD、优先级、方案、竞品、策略 | 做产品方案、需求澄清、业务判断 |
 | `ui` | 设计、页面、交互、视觉、体验、规范 | 页面设计、设计评审、交互优化 |
 | `arch` | 架构、选型、边界、系统设计、风险 | 技术架构评审、系统拆分、ADR |
-| `ba` | 用户研究、业务分析、流程梳理、市场调研 | 业务洞察、流程分析、用户问题拆解 |
-| `sm` | 任务拆解、排期、阻塞、Sprint、协作流程 | 迭代管理、流程推进、团队协作 |
+| `lobster` | 挑战方向、一号问题、取舍、别逃了 | 拆假问题、压缩"全都要"、强制优先级 |
+| `ba`（兼容） | 用户研究、业务分析、流程梳理 | 次级入口，优先用 `/pm` |
+| `sm`（兼容） | 任务拆解、排期、阻塞、Sprint | 次级入口，优先用 `/pm` |
 
 ### 路由层
 

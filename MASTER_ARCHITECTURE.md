@@ -261,9 +261,26 @@
 
 - `hermes-loop`
 - `agent-architecture-routing`
-- `knowledge-routing`
 - `research-routing`
 - `productivity-routing`
+- `knowledge-routing`
+
+统一顺序：
+
+1. 先由 `main` 做首轮判断
+2. 再进入 `hermes-loop` 做总编排
+3. 然后判断当前问题是否需要先拉 `lobster` 做方向挑战
+4. 再决定交给 `arch / pm / dev / ui / ops`
+5. 最后才进入具体 skill、workflow 和知识落点
+
+这里的关键不是“让龙虾接管一切”，而是让它只在以下问题里介入：
+
+- 方向可能错了
+- 范围明显失控
+- 优先级被稀释了
+- 方案复杂度在掩盖真正问题
+
+如果问题已经明确是实现、设计、架构、测试、部署，就不要先绕进龙虾挑战。
 
 推荐职责分配：
 

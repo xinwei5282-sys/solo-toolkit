@@ -189,6 +189,24 @@
 | `quick-dev` | 轻量开发和修复 | 不需要完整流程时使用 |
 | `reactive-fetch-list` | reactive + fetch 列表页规范 | 强项目特定模式 |
 
+### `SCRM/.claude`
+- 典型资产：
+  - `role-registry.md`
+  - `skills/role-router`
+  - `tools/install-shared-skill.sh`
+- 特征：
+  - 只保留项目 AI 接入层
+  - 不在项目仓库复制角色人格或全局 skills
+  - 通过映射表、薄路由和共享安装脚本接入独立 AI 仓库
+
+#### 详细清单
+
+| Asset | 主职责 | 备注 |
+|------|--------|------|
+| `role-registry.md` | 维护项目内角色映射 | 唯一角色真源仍是 `~/.openclaw/agents/*/agent/` |
+| `skills/role-router` | 按上下文决定是否接入角色视角 | 只做薄路由，不复制人格 |
+| `tools/install-shared-skill.sh` | 把共享 skill 链接到 Claude / Codex 运行时目录 | 业务项目只保留引用入口 |
+
 ### 其他独立技能
 - `~/.openclaw/skills/daily-stock-analysis`
   - 职责：股票技术面分析与操作建议

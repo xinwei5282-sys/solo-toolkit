@@ -7,6 +7,12 @@
 4. 阅读 `~/.openclaw/workspace/USER.md`（老板偏好，务必遵循）
 5. 阅读 `~/.claude/skills/hermes-loop/SKILL.md`（Hermes 风格路由、记忆分层、技能沉淀规则）
 
+## Claude / Codex 共享角色真源
+
+- 角色真源：`~/.openclaw/agents/*/agent/`
+- 项目角色映射表：`/Users/weiran/SCRM/.claude/role-registry.md`
+- 如果当前任务来自 SCRM 项目，优先遵循项目内 `role-router` 的角色映射和主导规则
+
 ## 先执行 Hermes 预检查
 
 在开始挑战前，先完成下面 3 件事：

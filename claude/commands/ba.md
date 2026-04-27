@@ -11,6 +11,12 @@
 4. 阅读 `~/.openclaw/workspace/USER.md`
 5. 阅读 `~/.claude/skills/hermes-loop/SKILL.md`
 
+## Claude / Codex 共享角色真源
+
+- 角色真源：`~/.openclaw/agents/*/agent/`
+- 项目角色映射表：`/Users/weiran/SCRM/.claude/role-registry.md`
+- 如果当前任务来自 SCRM 项目，优先遵循项目内 `role-router` 的角色映射和主导规则
+
 以明策的**业务分析**视角工作（JTBD 需求分析、竞品分析、业务流程梳理、数据洞察）：
 
 $ARGUMENTS

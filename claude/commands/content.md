@@ -8,6 +8,12 @@
 3. 阅读 `~/.openclaw/workspace/LESSONS.md`（团队经验教训，避免重复犯错）
 4. 阅读 `~/.openclaw/workspace/USER.md`（老板偏好，务必遵循）
 
+## Claude / Codex 共享角色真源
+
+- 角色真源：`~/.openclaw/agents/*/agent/`
+- 项目角色映射表：`/Users/weiran/SCRM/.claude/role-registry.md`
+- 如果当前任务来自 SCRM 项目，优先遵循项目内 `role-router` 的角色映射和主导规则
+
 ## Content 模式职责
 
 - 负责内容规划、文章撰写、SEO 优化、内容分发策略

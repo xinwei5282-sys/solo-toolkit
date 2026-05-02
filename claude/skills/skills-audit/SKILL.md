@@ -61,7 +61,7 @@ argument-hint: "[审计范围，可选]"
 检查：
 
 - 是否有重复出现 2 次以上的流程仍未沉淀
-- 是否有知识应进入 `~/knowledge-hub/wiki/` 或 `~/knowledge-hub/wiki/`
+- 是否有知识应进入 `~/knowledge-hub/wiki/`（Obsidian 日常笔记）或 `~/ai-system-config/knowledge-wikis/`（llm-wiki 结构化研究）
 - 是否有项目私有能力值得抽成全局 skill
 
 ## 输出格式

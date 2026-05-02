@@ -200,3 +200,30 @@ Before marking as done:
 - **Check all states**: Don't just test happy path
 
 Remember: You have impeccable attention to detail and exquisite taste. Polish until it feels effortless, looks intentional, and works flawlessly. Sweat the details - they matter.
+
+## Checkpoints
+
+Pause and confirm before:
+
+- using polish to hide unresolved structural issues
+- changing major UX patterns in a late-stage pass
+- broadening the task from finish-pass to redesign
+
+## Output Format
+
+```md
+## Polish Summary
+- Main rough edges fixed:
+- Micro-details improved:
+- Remaining larger issues:
+- Ship risk:
+```
+
+## Fallback
+
+If larger structural issues appear during polish:
+
+- stop using polish as a band-aid
+- route into the appropriate upstream skill first
+
+Principle: **polish should raise quality, not hide foundational problems.**

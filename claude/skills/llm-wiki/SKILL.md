@@ -1,6 +1,10 @@
 ---
 name: llm-wiki
-description: Build and maintain a Karpathy-style LLM knowledge base — a self-compiling Obsidian markdown wiki where an Agent ingests raw sources, compiles cross-linked concept/entity/summary pages, answers queries against the corpus, lints the graph for health, and audits in-context human feedback filed from Obsidian or the local web viewer. Use when: (1) scaffolding a new knowledge base for any research topic, (2) ingesting articles/papers/PDFs/web pages into raw/, (3) compiling or restructuring wiki articles from existing raw material, (4) answering questions against the wiki and filing durable answers back, (5) running lint passes for dead links / orphan pages / coverage gaps / audit shape, (6) processing human feedback from the audit/ directory and applying corrections. Not for general note-taking, daily journals, or non-wiki Obsidian use.
+description: >-
+  Use to build and maintain a structured markdown knowledge wiki from research
+  sources, PDFs, articles, notes, and web pages; create cross-linked concept
+  pages; answer questions against the wiki; and keep durable knowledge in a
+  long-lived knowledge base instead of ad hoc chat notes.
 ---
 
 # LLM Wiki — Karpathy Knowledge Base Pattern
@@ -16,6 +20,46 @@ Instead of RAG (re-retrieving raw docs on every query), the LLM **compiles** raw
 - **LLM** owns: all writing, cross-referencing, filing, bookkeeping, and acting on your feedback.
 
 The wiki is a living artifact with **five operations** — `compile`, `ingest`, `query`, `lint`, `audit`. Every session starts by reading `CLAUDE.md` and `wiki/index.md`.
+
+## When to use this skill
+
+Use `llm-wiki` when the user needs **durable knowledge**, not just a one-off answer.
+
+Strong fit:
+
+- building a long-lived research base on a topic over days or weeks
+- organizing many sources into a reusable, cross-linked knowledge system
+- answering questions from an existing wiki and improving the wiki as a side effect
+- turning repeated research work into durable concept pages instead of ad hoc notes
+
+Weak fit:
+
+- a one-off summary with no need to preserve the result
+- quick factual Q&A where normal browsing or direct reasoning is enough
+- small tasks where creating or updating wiki structure would cost more than the knowledge is worth
+
+If the user only needs a temporary answer, prefer a normal response or `summarize`. If they need reusable knowledge, use `llm-wiki`.
+
+## Mode selection
+
+Do not default to the heaviest workflow. Choose the smallest mode that fits:
+
+- **Answer mode**: read the existing wiki and answer from it. Use when the user asks a question against already-ingested knowledge.
+- **Ingest mode**: add one or a few sources, update summaries and the most relevant pages. Use for incremental knowledge growth.
+- **Compile mode**: restructure, split, merge, and rebuild the wiki. Use only when the wiki has become messy, oversized, or hard to navigate.
+- **Maintenance mode**: run `lint` or `audit` to keep quality high. Use when the user wants cleanup or correction processing.
+
+Tie-breakers:
+
+- if no durable artifact is needed yet, do not ingest
+- if only one answer is needed, do not compile
+- if the wiki structure is still healthy, do not rebuild it just because new material arrived
+
+## Default operating rule
+
+Prefer **answer or incremental ingest first**. Escalate to compile only when structure has clearly drifted.
+
+The default goal is not "do everything the system can do." The default goal is "make the knowledge base meaningfully better at the lowest justified cost."
 
 ## Directory layout
 
@@ -139,6 +183,8 @@ Every action on the wiki is one of these five. Each appends an entry to the curr
 
 Add a new source. **One source typically touches 5–15 wiki pages.**
 
+Use ingest when the source is worth preserving and likely to matter again. Do not ingest disposable reading.
+
 **Steps**:
 1. Save source to the right subfolder:
    - web article → `raw/articles/<slug>.md`
@@ -164,6 +210,8 @@ Answer a question **grounded in the wiki**, not general knowledge.
 5. Save to `outputs/queries/<YYYY-MM-DD>-<question-slug>.md`.
 6. If the answer is durable (a comparison, analysis, or new synthesis) → promote a cleaned-up version to `wiki/concepts/`, add to `index.md`.
 7. Log: `## [HH:MM] query | <question-slug>` (and a separate `## [HH:MM] promote | ...` line if promoted).
+
+Default to saving only when the answer is likely to be reused. Do not promote every decent answer into permanent wiki content.
 
 ### 4. `lint`
 
@@ -210,6 +258,26 @@ Process human feedback from `audit/`.
    ## [HH:MM] audit | resolved 20260409-143022-a1b2 — <one-line what>
    ```
 7. Never delete audit files. Rejected ones still go to `resolved/` with the rejection rationale in their resolution section — that's valuable history.
+
+## Stop rules
+
+Stop and avoid escalating the workflow when:
+
+- the user only needs a one-off answer
+- the current question can be answered from existing pages without changing the wiki
+- a source is interesting but not yet clearly worth durable storage
+- compile would mostly reshuffle files without improving retrieval or understanding
+
+This skill should compound knowledge, not create maintenance churn.
+
+## Checkpoints
+
+Pause and confirm before:
+
+- scaffolding a brand-new wiki
+- running a broad compile that will split or merge many pages
+- promoting a query answer into permanent wiki content when durability is uncertain
+- ingesting a large batch of sources with unclear long-term value
 
 See `references/audit-guide.md` for the full audit file format.
 
@@ -305,4 +373,3 @@ Quick grep across history: `grep -rh "^## \[" log/ | tail -20`.
 - `references/log-guide.md` — The `log/` folder convention
 - `references/audit-guide.md` — Audit file format, anchor strategy, processing workflow
 - `references/tooling-tips.md` — Obsidian setup, Web Clipper, qmd, plugin + web installation
-

@@ -107,6 +107,12 @@ async function main() {
     }
   });
 
+  // Search.
+  installSearch((p) => {
+    void loadPage(p);
+    history.pushState({ page: p }, "", `/?page=${encodeURIComponent(p)}`);
+  });
+
   // Refresh audits button.
   document.getElementById("btn-refresh")!.addEventListener("click", () => {
     void loadAudits(state.currentPath);
@@ -299,6 +305,70 @@ function escapeHtml(s: string): string {
 
 function cssEscape(s: string): string {
   return s.replace(/["\\]/g, "\\$&");
+}
+
+function installSearch(navigate: (path: string) => void) {
+  const input = document.getElementById("search-input") as HTMLInputElement;
+  const results = document.getElementById("search-results")!;
+  const tree = document.getElementById("tree")!;
+  let timer: ReturnType<typeof setTimeout> | null = null;
+
+  // "/" key focuses search.
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "/" && !isEditableFocused()) {
+      e.preventDefault();
+      input.focus();
+      input.select();
+    }
+    if (e.key === "Escape" && document.activeElement === input) {
+      clearSearch();
+      input.blur();
+    }
+  });
+
+  input.addEventListener("input", () => {
+    if (timer) clearTimeout(timer);
+    const q = input.value.trim();
+    if (!q) { clearSearch(); return; }
+    timer = setTimeout(() => void doSearch(q), 200);
+  });
+
+  async function doSearch(q: string) {
+    const res = await fetch(`/api/search?q=${encodeURIComponent(q)}`);
+    const data: { hits: { path: string; title: string; snippet: string }[] } = await res.json();
+    renderResults(data.hits);
+  }
+
+  function renderResults(hits: { path: string; title: string; snippet: string }[]) {
+    if (hits.length === 0) {
+      results.innerHTML = '<p class="search-empty">无匹配结果</p>';
+      results.classList.remove("hidden");
+      tree.classList.add("hidden");
+      return;
+    }
+    results.innerHTML = hits.map(h => `
+      <a class="search-hit" data-path="${cssEscape(h.path)}" href="/?page=${encodeURIComponent(h.path)}">
+        <div class="search-hit-title">${escapeHtml(h.title)}</div>
+        <div class="search-hit-snippet">${escapeHtml(h.snippet)}</div>
+      </a>`).join("");
+    results.classList.remove("hidden");
+    tree.classList.add("hidden");
+    results.querySelectorAll("a.search-hit").forEach(a => {
+      a.addEventListener("click", (e) => {
+        e.preventDefault();
+        const p = (a as HTMLAnchorElement).dataset["path"]!;
+        clearSearch();
+        navigate(p);
+      });
+    });
+  }
+
+  function clearSearch() {
+    input.value = "";
+    results.innerHTML = "";
+    results.classList.add("hidden");
+    tree.classList.remove("hidden");
+  }
 }
 
 void main();

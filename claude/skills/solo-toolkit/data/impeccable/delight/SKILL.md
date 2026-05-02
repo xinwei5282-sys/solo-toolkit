@@ -301,3 +301,31 @@ Test that delight actually delights:
 - **Accessible**: Works with reduced motion, screen readers
 
 Remember: Delight is the difference between a tool and an experience. Add personality, surprise users positively, and create moments worth sharing. But always respect usability - delight should enhance, never obstruct.
+
+## Checkpoints
+
+Pause and confirm before:
+
+- adding delight to high-stakes or sensitive workflows
+- introducing motion, sound, or surprise elements that may annoy repeat users
+- widening scope from polish to playful redesign
+
+## Output Format
+
+```md
+## Delight Summary
+- Delight moments added:
+- Why they fit the context:
+- Safeguards for usability / accessibility:
+- Risks / follow-up:
+```
+
+## Fallback
+
+If the right delightful move is unclear:
+
+- prefer subtle personality over spectacle
+- delight low-stakes moments first
+- keep every flourish skippable and lightweight
+
+Principle: **delight should feel earned, not sprayed on.**

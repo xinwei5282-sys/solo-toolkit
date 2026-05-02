@@ -7,8 +7,7 @@
 - `Claude`
 - `Codex`
 - `gstack`
-- `OpenClaw`
-- `Qclaw`
+- `Qclaw`（晓秘 main 的运行 runtime）
 - `shared-ai-skills / solo-toolkit`
 - `knowledge-base`
 - `knowledge-wikis`
@@ -37,7 +36,7 @@
 
 一句话总结：
 
-> `OpenClaw` 管人格，`Hermes` 管路由，`gstack` 管工程工作流，`shared-ai-skills` 管具体能力，`knowledge-base / knowledge-wikis` 管沉淀。
+> `~/.agents/skills/role-*/` 管人格，`Hermes` 管路由，`gstack` 管工程工作流，`shared-ai-skills` 管具体能力，`knowledge-base / knowledge-wikis` 管沉淀。
 
 ---
 
@@ -72,13 +71,13 @@
 - Codex 自带运行时技能
 - system skill / runtime skill / Darwin skill
 
-### 2.3 OpenClaw 角色系统
+### 2.3 角色系统（role-* skills）
 
 主要目录：
 
-- `~/.openclaw/agents/*/agent/`
-- `~/.openclaw/workspace/`
-- `~/.openclaw/skills/`
+- `~/.agents/skills/role-*/`
+- `~/.qclaw/workspace/`（晓秘 main 的运行目录；已迁移人格到 .agents/skills/role-main/persona/）
+- （已废弃，原内容已迁移）
 
 当前角色：
 
@@ -207,7 +206,7 @@
 
 **唯一 source of truth：**
 
-- `~/.openclaw/agents/*/agent/`
+- `~/.agents/skills/role-*/`
 
 **入口层：**
 
@@ -241,7 +240,7 @@
 
 如果“龙虾人格”要进入主系统，它应被定义为：
 
-- 一个正式角色，落在 `~/.openclaw/agents/lobster/agent/`
+- 一个正式角色，落在 `~/.agents/skills/role-lobster/persona/`
 
 或者：
 
@@ -320,12 +319,12 @@
 
 - 工程、上线、review、dogfood、QA 统一优先走 `gstack`
 - `BMAD` 作为 planning / architecture / artifact 模板库使用
-- `OpenClaw role flow` 负责“谁来主导”，不替代 `gstack` 的工程流程
+- `role-*` 角色路由负责"谁来主导"，不替代 `gstack` 的工程流程
 
 ### 建议分工
 
-- `OpenClaw`
-  - 角色身份与协作壳
+- `~/.agents/skills/role-*/`
+  - 角色身份、人格、方法论
 - `Hermes`
   - 路由与沉淀判断
 - `gstack`
@@ -395,7 +394,7 @@
 
 - `~/.claude/skills/gstack`
 - `~/.codex/skills/.system`
-- `~/.openclaw/extensions`
+- （已废弃）
 - `~/.qclaw/plugins`
 
 规则：
@@ -417,7 +416,7 @@
 
 ### 会话层
 
-- Claude / Codex / OpenClaw 的当前会话上下文
+- Claude / Codex 的当前会话上下文
 
 ### 项目层
 
@@ -461,8 +460,8 @@
 
 ### 4.1 主系统
 
-- **交互壳**：`Claude`
-- **人格系统**：`OpenClaw`
+- **交互壳**：`Claude` / `Codex`
+- **人格系统**：`~/.agents/skills/role-*/`
 - **路由系统**：`Hermes`
 - **工程工作流系统**：`gstack`
 - **能力主库**：`shared-ai-skills`
@@ -480,7 +479,7 @@
 
 ### 4.3 不建议继续做的事
 
-- 不再让 `Claude`、`OpenClaw`、`Qclaw` 同时维护一套完整人格定义
+- 不再让 `Claude`、`Codex`、`Qclaw` 同时维护一套完整人格定义
 - 不再让每个项目复制一份全局 skill 正文
 - 不再让 `BMAD` 和 `gstack` 争夺默认工程工作流地位
 - 不再把“龙虾人格”写成散落 prompt 片段
@@ -520,7 +519,7 @@
 
 | 层 | Source of Truth | 说明 |
 |---|---|---|
-| Persona | `~/.openclaw/agents/*/agent/` | 人格、方法论、角色边界 |
+| Persona | `~/.agents/skills/role-*/` | 人格、方法论、角色边界 |
 | Command Entry | `~/.claude/commands/` | 对外入口 |
 | Routing | `hermes-loop` + routing skills | 下一跳与落点判断 |
 | Workflow | `gstack` | 工程类标准流程 |
@@ -538,13 +537,13 @@
 
 现状：
 
-- `~/.claude/commands/*.md`
-- `~/.openclaw/agents/*/agent/SOUL.md`
+- `~/.claude/commands/*.md`（轻量入口路由）
+- `~/.agents/skills/role-*/SKILL.md`（人格内嵌；main/lobster 另有 `persona/SOUL.md`）
 
 建议：
 
 - 保留 command 入口
-- 正文只保留在 OpenClaw agent 目录
+- 正文只保留在 `~/.agents/skills/role-*/`，与 codex 通过 hardlink 同步
 
 ### 7.2 Skill 正文重复
 
@@ -599,9 +598,9 @@
 
 创建：
 
-- `~/.openclaw/agents/lobster/agent/IDENTITY.md`
-- `~/.openclaw/agents/lobster/agent/SOUL.md`
-- `~/.openclaw/agents/lobster/agent/AGENTS.md`
+- `~/.agents/skills/role-lobster/persona/IDENTITY.md`
+- `~/.agents/skills/role-lobster/persona/SOUL.md`
+- `~/.agents/skills/role-lobster/persona/AGENTS.md`
 - `~/.claude/commands/lobster.md`
 
 适合：
@@ -656,7 +655,7 @@
 从现在开始，默认采用以下判断：
 
 1. 先问：这是人格问题、路由问题、workflow 问题、skill 问题，还是知识问题？
-2. 人格问题 → 改 `OpenClaw agent`
+2. 人格问题 → 改 `~/.agents/skills/role-*/`（main/lobster 改 `persona/`，其余改 SKILL.md）
 3. 路由问题 → 改 `Hermes / routing skills`
 4. 工程工作流问题 → 改 `gstack`
 5. 通用执行能力问题 → 改 `shared-ai-skills`

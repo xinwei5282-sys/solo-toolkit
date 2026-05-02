@@ -27,13 +27,12 @@ export function wikilinksPlugin(md: MarkdownIt, resolve: WikilinkResolver): void
       const display = alias || target;
 
       const resolved = resolve(target);
-      const href =
-        resolved?.href ??
-        `/?page=${encodeURIComponent(target)}${anchor ? "#" + encodeURIComponent(anchor) : ""}`;
+      const hrefBase = resolved?.href ?? `/?page=${encodeURIComponent(target)}`;
+      const href = anchor ? `${hrefBase}#${encodeURIComponent(anchor)}` : hrefBase;
 
       const open = state.push("link_open", "a", 1);
       open.attrs = [
-        ["href", href + (anchor ? `#${anchor}` : "")],
+        ["href", href],
         ["class", `wikilink ${resolved?.exists ? "wikilink-alive" : "wikilink-dead"}`],
         ["data-wikilink-target", target],
       ];

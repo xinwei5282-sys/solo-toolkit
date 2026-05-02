@@ -13,6 +13,8 @@ Invoke /frontend-design — it contains design principles, anti-patterns, and th
 
 Conduct a holistic design critique, evaluating whether the interface actually works — not just technically, but as a designed experience. Think like a design director giving feedback.
 
+Default behavior: **present findings first**. Do not force an interactive back-and-forth unless the action plan genuinely depends on unresolved design intent, scope, or constraints.
+
 ## Phase 1: Design Critique
 
 Evaluate the interface across these dimensions:
@@ -152,9 +154,16 @@ Quick notes on smaller issues worth addressing.
 - Prioritize ruthlessly — if everything is important, nothing is
 - Don't soften criticism — developers need honest feedback to ship great design
 
+After Phase 2, decide whether more user input is actually needed:
+
+- **Simple mode (default)**: If the main problems and likely fixes are clear, skip questions and go straight to recommended actions.
+- **Interactive mode (only when needed)**: Ask follow-up questions only if priorities, tone, scope, or off-limits areas would materially change the recommendations.
+
 ## Phase 3: Ask the User
 
-**After presenting findings**, use targeted questions based on what was actually found. ask the user directly to clarify what you cannot infer. These answers will shape the action plan.
+**Only use this phase when genuinely necessary after Phase 2.** If the critique is straightforward, skip this phase and continue directly to recommended actions.
+
+When needed, use targeted questions based on what was actually found. ask the user directly to clarify what you cannot infer. These answers will shape the action plan.
 
 Ask questions along these lines (adapt to the specific findings — do NOT ask generic questions):
 
@@ -170,11 +179,13 @@ Ask questions along these lines (adapt to the specific findings — do NOT ask g
 - Every question must reference specific findings from Phase 2 — never ask generic "who is your audience?" questions
 - Keep it to 2–4 questions maximum — respect the user's time
 - Offer concrete options, not open-ended prompts
-- If findings are straightforward (e.g., only 1–2 clear issues), skip questions and go directly to Phase 4
+- If findings are straightforward (e.g., 1–3 clear issues with an obvious path), skip questions and go directly to Phase 4
+- If the user asked for “review only” or clearly does not want interaction, skip questions and end after findings plus recommended actions
 
 ## Phase 4: Recommended Actions
 
-**After receiving the user's answers**, present a prioritized action summary reflecting the user's priorities and scope from Phase 3.
+If Phase 3 was used, present a prioritized action summary reflecting the user's answers.
+If Phase 3 was skipped, infer the most sensible priority order directly from the findings and present it immediately.
 
 ### Action Summary
 
@@ -199,3 +210,28 @@ After presenting the summary, tell the user:
 > You can ask me to run these one at a time, all at once, or in any order you prefer.
 >
 > Re-run `/critique` after fixes to see your score improve.
+
+## Mode Selection Rule
+
+Choose the lightest mode that fits:
+
+- **Review-only mode**: Findings + recommended actions, no questions
+- **Clarifying mode**: Findings + 1-3 targeted questions + revised actions
+
+Default to review-only mode unless additional input would change the plan in a meaningful way.
+
+## Fallback
+
+If the interface or intent is only partially visible:
+
+- critique only what can be observed directly
+- separate verified findings from assumptions
+- avoid pretending to know audience intent without context
+
+If the interface is simple and the main defects are obvious:
+
+- shorten the report
+- keep only the highest-signal findings
+- avoid full framework ceremony when a concise review would be better
+
+Principle: **sharp critique depends on real evidence, not generic taste.**

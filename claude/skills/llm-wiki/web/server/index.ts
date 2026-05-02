@@ -7,6 +7,7 @@ import { handleTree } from "./routes/tree.js";
 import { handlePage, handleRaw } from "./routes/pages.js";
 import { handleAuditList, handleAuditCreate, handleAuditResolve } from "./routes/audit.js";
 import { handleGraph } from "./routes/graph.js";
+import { handleSearch } from "./routes/search.js";
 
 const cfg = parseArgs(process.argv);
 
@@ -18,6 +19,7 @@ app.get("/api/tree", handleTree(cfg));
 app.get("/api/graph", handleGraph(cfg));
 app.get("/api/page", handlePage(cfg));
 app.get("/api/raw", handleRaw(cfg));
+app.get("/api/search", handleSearch(cfg));
 app.get("/api/audit", handleAuditList(cfg));
 app.post("/api/audit", handleAuditCreate(cfg));
 app.patch("/api/audit/:id/resolve", handleAuditResolve(cfg));

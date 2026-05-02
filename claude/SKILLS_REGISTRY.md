@@ -17,7 +17,9 @@
 
 1. **角色层**
    - 入口：`~/.claude/commands/`
-   - 资产：`~/.openclaw/agents/*/agent/`
+   - 角色定义：`~/.agents/skills/role-*/SKILL.md`
+   - 完整 persona（仅 main / lobster）：`~/.agents/skills/role-*/persona/`
+   - 其他角色：人格直接内嵌在各自 SKILL.md 中
    - 职责：人格、视角、方法论、角色边界
 
 2. **路由层**
@@ -40,80 +42,83 @@
 
 ## 二、角色层
 
+> 说明：除 `main` 和 `lobster` 外，其他 11 个角色的人格已内嵌至 `~/.agents/skills/role-*/SKILL.md`，不再依赖独立 SOUL/AGENTS 文件。
+
 ### `dev`
 - 入口：`~/.claude/commands/dev.md`
 - 主职责：编码实现、调试、重构、测试、联调
 - 不负责：业务优先级、PRD 主导、视觉方向
-- 依赖：`~/.openclaw/agents/dev/agent/*`
+- 定义：`~/.agents/skills/role-dev/SKILL.md`
 
 ### `pm`
 - 入口：`~/.claude/commands/pm.md`
 - 主职责：需求分析、优先级、业务判断、PRD、竞品与策略
 - 不负责：直接主导编码和视觉定稿
-- 依赖：`~/.openclaw/agents/pm/agent/*`
+- 定义：`~/.agents/skills/role-pm/SKILL.md`
 
 ### `ui`（绘心）
 - 入口：`~/.claude/commands/ui.md`
 - 主职责：页面结构、交互体验、视觉系统、设计规范
 - 不负责：业务优先级和代码实现细节
-- 依赖：`~/.openclaw/agents/design/agent/*`
-- 注意：command 叫 `ui`，OpenClaw agent 叫 `design`，两者是同一角色，命名不一致属历史遗留
+- 定义：`~/.agents/skills/role-ui/SKILL.md`
 
 ### `arch`
 - 入口：`~/.claude/commands/arch.md`
 - 主职责：架构设计、技术选型、非功能需求、风险评估
 - 不负责：业务代码实现
-- 依赖：`~/.openclaw/agents/arch/agent/*`（C4 模型、ADR、ATAM 方法论）
+- 定义：`~/.agents/skills/role-arch/SKILL.md`（C4 模型、ADR、ATAM 方法论）
 
 ### `main`（晓秘）
 - 入口：`~/.claude/commands/main.md`
 - 主职责：老板与 Agent 团队的总协调，任务路由与进度跟进
 - 不负责：替代各专业角色的执行
-- 依赖：`~/.openclaw/workspace/SOUL.md`、`~/.openclaw/workspace/AGENTS.md`
+- 定义：`~/.agents/skills/role-main/SKILL.md`
+- Persona：`~/.agents/skills/role-main/persona/{SOUL,IDENTITY}.md`
 
 ### `content`（墨言）
 - 入口：`~/.claude/commands/content.md`
 - 主职责：内容规划、文章撰写、SEO 优化
-- 依赖：`~/.openclaw/agents/content/agent/*`
+- 定义：`~/.agents/skills/role-content/SKILL.md`
 
 ### `finance`（算盘）
 - 入口：`~/.claude/commands/finance.md`
 - 主职责：账务、财务分析、税务规划
-- 依赖：`~/.openclaw/agents/finance/agent/*`
+- 定义：`~/.agents/skills/role-finance/SKILL.md`
 
 ### `growth`（拓客）
 - 入口：`~/.claude/commands/growth.md`
 - 主职责：用户获取、全漏斗增长、渠道实验
-- 依赖：`~/.openclaw/agents/growth/agent/*`
+- 定义：`~/.agents/skills/role-growth/SKILL.md`
 
 ### `legal`（律己）
 - 入口：`~/.claude/commands/legal.md`
 - 主职责：合同审查、合规风险识别、隐私政策
-- 依赖：`~/.openclaw/agents/legal/agent/*`
+- 定义：`~/.agents/skills/role-legal/SKILL.md`
 
 ### `ops`（守卫）
 - 入口：`~/.claude/commands/ops.md`
 - 主职责：系统巡检、告警处理、Agent 系统稳定运行
-- 依赖：`~/.openclaw/agents/ops/agent/*`
+- 定义:`~/.agents/skills/role-ops/SKILL.md`
 
 ### `support`（暖客）
 - 入口：`~/.claude/commands/support.md`
 - 主职责：用户问题解答、反馈收集与汇总
-- 依赖：`~/.openclaw/agents/support/agent/*`
+- 定义：`~/.agents/skills/role-support/SKILL.md`
 
 ### `lobster`（龙虾）
 - 入口：`~/.claude/commands/lobster.md`
 - 主职责：战略挑战，拆假问题、伪复杂度，强制取舍
 - 不负责：完整执行，不取代专业角色
 - 典型触发：方向不清、范围失控、"全都要"类需求
-- 依赖：`~/.openclaw/agents/lobster/agent/*`
+- 定义：`~/.agents/skills/role-lobster/SKILL.md`
+- Persona：`~/.agents/skills/role-lobster/persona/{SOUL,AGENTS,IDENTITY}.md`
 
 ### `trader`（操盘）
 - 入口：`~/.claude/commands/trader.md`
 - 主职责：量化策略执行、A 股交易分析、仓位管理、策略回测、绩效复盘
 - 不负责：非系统化的直觉交易，不越风控红线
 - 典型触发：盘前准备、策略信号、仓位调整、回测、周报
-- 依赖：`~/.openclaw/agents/trader/agent/*`
+- 定义：`~/.agents/skills/role-trader/SKILL.md`
 
 ---
 
@@ -263,9 +268,9 @@
 | `code-reviewer` | HTML 原型 + PRD 文档交付前审查 | 偏视觉一致性、交互完整性、需求清晰度 |
 
 ### 其他独立技能
-- `~/.openclaw/skills/daily-stock-analysis`
+- `~/.agents/skills/daily-stock-analysis`
   - 职责：股票技术面分析与操作建议
-  - 不负责：长期 thesis 知识库编译
+  - 不负责：长期 thesis 知识库编译（→ llm-wiki/trading-thesis）
 
 ---
 
@@ -279,12 +284,13 @@
 - 职责：通用长期知识
 - 适合：经验、原则、踩坑、方法、决策记录
 
-### `~/knowledge-wikis/`（Obsidian Vault — 日常工作笔记）
-- 路径：`~/knowledge-wikis/wiki/`
+### `~/knowledge-hub/`（Obsidian Vault — 日常工作笔记）
+- 路径：`~/knowledge-hub/wiki/`
+- 别名：`~/knowledge-wikis -> ~/knowledge-hub`（symlink，两条路径同一份内容）
 - 管理方式：Obsidian，人工维护
 - 适合：日报、项目文档（SCRM）、开发踩坑、技术决策
 - **不适合**：需要 AI 持续编译和交叉链接的主题研究
-- 当前分区：`日报/`、`开发问题总结/`、`项目/scrm产品/`
+- 当前分区：`日报/`、`开发问题总结/`、`项目/scrm产品/`、`团队经验教训.md`、`老板偏好.md`
 
 ### `~/ai-system-config/knowledge-wikis/`（llm-wiki — 结构化主题研究）
 - 管理方式：`llm-wiki` skill，AI 编译 + 交叉链接

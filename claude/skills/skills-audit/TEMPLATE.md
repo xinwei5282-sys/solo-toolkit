@@ -36,7 +36,7 @@
 
 - 全局 vs 项目：
 - 角色 vs skill：
-- knowledge-base vs knowledge-wikis：
+- 长期知识 vs 项目层：
 
 ## Missing Skills / Missing Documentation
 

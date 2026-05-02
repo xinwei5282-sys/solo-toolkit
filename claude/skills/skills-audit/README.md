@@ -15,12 +15,12 @@
 
 1. 复查角色层、路由层、执行技能层、记忆层、研究层
 2. 检查 project skills 是否该抽象为全局能力
-3. 检查 `knowledge-base` 与 `knowledge-wikis` 的边界是否漂移
+3. 检查 `~/knowledge-hub/wiki/` 与 `~/knowledge-hub/wiki/` 的边界是否漂移
 4. 检查长期不用的技能是否应归档
 5. 更新 registry 与 wiki
 
 ## 推荐落地产物
 
 - `~/.claude/SKILLS_REGISTRY.md`
-- `~/knowledge-wikis/agent-systems/`
-- 审计报告文件（建议放项目目录或 `knowledge-base`）
+- `~/knowledge-hub/wiki/agent-systems/`
+- 审计报告文件（建议放项目目录或 `~/knowledge-hub/wiki/`）

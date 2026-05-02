@@ -1,8 +1,12 @@
 ---
-description: Routing-layer skills for Hermes-style local agent orchestration. These skills classify requests before execution, decide which role should lead, choose the right memory tier, and determine whether work belongs in project docs, reusable skills, knowledge-base, or structured wikis.
+description: Routing-layer skills for Hermes-style local agent orchestration. Use when a request first needs classification: decide which role should lead, which skill should execute, where memory should land, and whether work belongs in project docs, reusable skills, a knowledge base, or structured wikis.
+not-callable: true
 ---
 
 # Routing Layer
+
+> ⚠️ **此目录不是可调用的 skill**，不要通过 `/routing` 触发。
+> 请直接调用具体路由技能：`/hermes-loop`、`research-routing`、`knowledge-routing` 等。
 
 这不是一个执行 skill，而是本地能力体系中的**路由层分类说明**。
 
@@ -28,7 +32,7 @@ description: Routing-layer skills for Hermes-style local agent orchestration. Th
 - 路由 skill 优先做分类，不承担完整执行
 - 重技能负责明确工作流和产物
 - 项目私有 skill 优先于全局默认
-- 长期结构化主题优先进入 `knowledge-wikis`
+- 长期结构化主题优先进入 `knowledge-hub/wiki`
 
 ## 何时扩展路由层
 

@@ -1,15 +1,74 @@
 ---
 name: colorize
-description: Add strategic color to features that are too monochromatic or lack visual interest, making interfaces more engaging and expressive. Use when the user mentions the design looking gray, dull, lacking warmth, needing more color, or wanting a more vibrant or expressive palette.
+description: Add strategic color to features that are too monochromatic or lack visual interest, making interfaces more engaging and expressive. Use when the user mentions the design looking gray, dull, lacking warmth, needing more color, or wanting a more vibrant or expressive palette. Use after confirming design context through `frontend-design`, and prefer `quieter`, `typeset`, or `arrange` when the real problem is intensity, typography, or hierarchy rather than lack of color.
 user-invocable: true
 argument-hint: "[target]"
 ---
 
 Strategically introduce color to designs that are too monochromatic, gray, or lacking in visual warmth and personality.
 
+This is a **purposeful color introduction skill**, not a license to make everything louder. Use it to improve meaning, hierarchy, and emotional tone.
+
 ## MANDATORY PREPARATION
 
 Invoke /frontend-design — it contains design principles, anti-patterns, and the **Context Gathering Protocol**. Follow the protocol before proceeding — if no design context exists yet, you MUST run /teach-impeccable first. Additionally gather: existing brand colors.
+
+Before changing anything, determine whether `colorize` is the correct tool:
+
+- Use `colorize` when the interface lacks warmth, contrast of emphasis, or memorable visual identity.
+- Use `quieter` when the interface is already too saturated or visually aggressive.
+- Use `typeset` when the screen feels dull because hierarchy is weak, not because color is missing.
+- Use `arrange` when the screen feels flat because spacing and composition are weak.
+
+If the root problem is not color, do not paper over it with accent paint.
+
+## When Not To Add More Color
+
+Do **not** increase color intensity aggressively if:
+
+- the brand already relies on restrained or editorial minimalism
+- the interface is a dense productivity tool where too much color will hurt scanability
+- the current problem is clutter, not monotony
+- the added color would compete with alerts, status states, or existing semantics
+- the interface already has enough color but uses it inconsistently
+
+In those cases, either:
+- refine and normalize the existing palette, or
+- route into a better-fit skill.
+
+## Colorization Workflow
+
+Follow this order:
+
+1. Identify the current color failure
+   Decide whether the interface is suffering from:
+   - no color
+   - timid color
+   - inconsistent color
+   - color without meaning
+
+2. Define the job of color
+   Decide what color should do here:
+   - improve hierarchy
+   - communicate state
+   - create warmth
+   - establish brand memory
+   - separate sections or categories
+
+3. Choose a compact palette
+   Pick one dominant color family, one supporting family if needed, and one high-contrast accent only if justified.
+
+4. Apply color in priority order
+   Start with high-leverage surfaces first:
+   - primary actions
+   - interactive states
+   - semantic states
+   - key headings / labels
+   - subtle surface tints
+   Decorative color comes last, not first.
+
+5. Verify restraint
+   Confirm that color improved clarity without making the screen noisier.
 
 ---
 
@@ -35,6 +94,18 @@ If any of these are unclear from the codebase, ask the user directly to clarify 
 
 **CRITICAL**: More color ≠ better. Strategic color beats rainbow vomit every time. Every color should have a purpose.
 
+## Color Heuristics
+
+Use these tests before introducing a new hue:
+
+- **Meaning test**: Does this color communicate something useful?
+- **Hierarchy test**: Does it direct attention to the right place?
+- **Consistency test**: Will this meaning stay stable across the product?
+- **Restraint test**: Is there already enough color on screen?
+- **Contrast test**: Will this remain legible and accessible?
+
+If a proposed color fails most tests, do not add it.
+
 ## Plan Color Strategy
 
 Create a purposeful color introduction plan:
@@ -45,6 +116,15 @@ Create a purposeful color introduction plan:
 - **Application strategy**: Where does each color appear and why?
 
 **IMPORTANT**: Color should enhance hierarchy and meaning, not create chaos. Less is more when it matters more.
+
+Before editing, explicitly write down:
+
+- dominant color family
+- semantic colors you will keep or introduce
+- where color will stay neutral on purpose
+- which existing gray surfaces should remain gray
+
+If you cannot name where color should *not* go, your palette is probably too broad.
 
 ## Introduce Color Strategically
 
@@ -67,6 +147,7 @@ Add color systematically across these dimensions:
 - **Icons**: Colorize key icons for recognition and personality
 - **Headers/titles**: Add color to section headers or key labels
 - **Hover states**: Introduce color on interaction
+- **Selection states**: Active nav items, tabs, and selected filters can carry stronger color than idle states
 
 ### Background & Surfaces
 - **Tinted backgrounds**: Replace pure gray (`#f5f5f5`) with warm neutrals (`oklch(97% 0.01 60)`) or cool tints (`oklch(97% 0.01 250)`)
@@ -98,6 +179,8 @@ Add color systematically across these dimensions:
 - **Gradients**: Colorful gradient overlays or mesh backgrounds
 - **Blobs/organic shapes**: Soft colored shapes for visual interest
 
+Decorative color is allowed only after hierarchy, semantics, and interaction states already feel correct.
+
 ## Balance & Refinement
 
 Ensure color addition improves rather than overwhelms:
@@ -118,6 +201,13 @@ Ensure color addition improves rather than overwhelms:
 - **Systematic application**: Same color meanings throughout (green always = success)
 - **Temperature consistency**: Warm palette stays warm, cool stays cool
 
+### Order Of Operations
+- First fix semantic state colors
+- Then fix primary interaction emphasis
+- Then tint surfaces and neutrals
+- Then tune decorative accents
+- Last, remove any extra color that no longer earns its place
+
 **NEVER**:
 - Use every color in the rainbow (choose 2-4 colors beyond neutrals)
 - Apply color randomly without semantic meaning
@@ -129,6 +219,20 @@ Ensure color addition improves rather than overwhelms:
 - Make everything colorful (defeats the purpose)
 - Default to purple-blue gradients (AI slop aesthetic)
 
+## Checkpoints
+
+Pause and confirm with the user before major palette shifts when:
+
+- you are changing established brand colors
+- you are repurposing existing semantic meanings
+- the interface is in a regulated or operational domain where color carries real status meaning
+- the request implies a rebrand rather than a feature polish
+
+If the user asked only for “more color,” default to:
+- improve emphasis first
+- warm up neutrals second
+- add decorative color last
+
 ## Verify Color Addition
 
 Test that colorization improves the experience:
@@ -138,5 +242,38 @@ Test that colorization improves the experience:
 - **More engaging**: Does the interface feel warmer and more inviting?
 - **Still accessible**: Do all color combinations meet WCAG standards?
 - **Not overwhelming**: Is color balanced and purposeful?
+
+Run a final scan:
+
+- Can a user identify the primary action in under 2 seconds?
+- Do status colors still read instantly?
+- If decorative accents were removed, would the screen still work?
+
+If the answer to the last question is no, you used decoration to cover a hierarchy problem.
+
+## Output Format
+
+When you finish, summarize the decision like this:
+
+```md
+## Colorization Summary
+- Dominant palette:
+- Semantic colors:
+- Where color was added:
+- Where neutrality was preserved:
+- Accessibility / risk check:
+- Follow-up skill if needed:
+```
+
+## Fallback
+
+If brand guidance is missing or palette confidence is low:
+
+- keep semantic colors conventional
+- tint neutrals subtly rather than introducing many saturated accents
+- avoid rebranding the product by accident
+- prefer reversible token-level changes over ad hoc one-off colors
+
+Principle: **when unsure, add meaning before adding intensity.**
 
 Remember: Color is emotional and powerful. Use it to create warmth, guide attention, communicate meaning, and express personality. But restraint and strategy matter more than saturation and variety. Be colorful, but be intentional.

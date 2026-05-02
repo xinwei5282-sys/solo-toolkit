@@ -123,7 +123,7 @@
 
 | 层 | Source of Truth |
 |---|---|
-| 人格/角色 | `~/.openclaw/agents/*/agent/` |
+| 人格/角色 | `~/.agents/skills/role-*/` |
 | 命令入口 | `~/.claude/commands/` |
 | 路由规则 | **本文件** `MASTER_ROUTING.md` |
 | 工程工作流 | `gstack` |

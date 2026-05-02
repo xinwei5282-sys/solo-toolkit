@@ -113,3 +113,32 @@ Build a clear type scale:
 - **Accessibility**: Does text meet WCAG contrast ratios? Is it zoomable to 200%?
 
 Remember: Typography is the foundation of interface design — it carries the majority of information. Getting it right is the highest-leverage improvement you can make.
+
+## Checkpoints
+
+Pause and confirm before:
+
+- replacing an established brand type system
+- introducing extra web fonts with non-trivial performance cost
+- turning a typographic cleanup into a broader redesign
+
+## Output Format
+
+```md
+## Typesetting Summary
+- Font / scale strategy:
+- Hierarchy fixes:
+- Readability improvements:
+- Performance / accessibility checks:
+- Risks / follow-up:
+```
+
+## Fallback
+
+If brand typography is unclear:
+
+- improve hierarchy and readability first
+- avoid speculative font swaps
+- prefer token and scale cleanup over aesthetic reinvention
+
+Principle: **clarity beats novelty unless the brand explicitly needs both.**

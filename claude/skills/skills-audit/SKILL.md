@@ -1,6 +1,6 @@
 ---
 name: skills-audit
-description: 周期性审计本地 skills 体系，检查重复能力、边界模糊、失效技能、缺失沉淀，并输出结构化审计报告。适用于每周/每月治理本地 Claude、OpenClaw、项目私有 skills。
+description: 周期性审计本地 skills 体系，检查重复能力、边界模糊、失效技能、命名不清、触发不稳、缺失沉淀，并输出结构化治理报告；适合清理和优化全局 skill 库。
 user-invocable: true
 argument-hint: "[审计范围，可选]"
 ---
@@ -23,10 +23,9 @@ argument-hint: "[审计范围，可选]"
 
 - `~/.claude/commands/`
 - `~/.claude/skills/`
-- `~/.openclaw/agents/*/agent/`
+- `~/.agents/skills/role-*/persona/`（main 和 lobster 的人格）
 - 项目内 `.claude/skills/`
-- `~/knowledge-base/`
-- `~/knowledge-wikis/`
+- `~/knowledge-hub/wiki/`
 - `~/.claude/SKILLS_REGISTRY.md`
 
 ## 审计维度
@@ -62,7 +61,7 @@ argument-hint: "[审计范围，可选]"
 检查：
 
 - 是否有重复出现 2 次以上的流程仍未沉淀
-- 是否有知识应进入 `knowledge-base` 或 `knowledge-wikis`
+- 是否有知识应进入 `~/knowledge-hub/wiki/` 或 `~/knowledge-hub/wiki/`
 - 是否有项目私有能力值得抽成全局 skill
 
 ## 输出格式

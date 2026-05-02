@@ -28,7 +28,7 @@ from datetime import datetime
 HOME = Path.home()
 SOLO_TOOLKIT = HOME / ".claude" / "skills" / "solo-toolkit"
 SKILL_MD = SOLO_TOOLKIT / "SKILL.md"
-OPENCLAW_AGENTS = HOME / ".openclaw" / "agents"
+AGENTS_SKILLS = HOME / ".agents" / "skills"
 CLAUDE_COMMANDS = HOME / ".claude" / "commands"
 DATA_DIR = SOLO_TOOLKIT / "data"
 WORKFLOWS_DIR = DATA_DIR / "workflows"
@@ -188,8 +188,8 @@ def merge_as_role(skill: dict):
     print(f"  类型: 角色")
     print(f"  生成 Agent: {slug}")
 
-    # 创建 OpenClaw Agent 目录
-    agent_dir = OPENCLAW_AGENTS / slug / "agent"
+    # 创建角色 persona 目录（统一在 .agents/skills/role-{slug}/persona/ 下）
+    agent_dir = AGENTS_SKILLS / f"role-{slug}" / "persona"
     agent_dir.mkdir(parents=True, exist_ok=True)
 
     # 生成 IDENTITY.md
@@ -236,10 +236,10 @@ def merge_as_role(skill: dict):
     cmd_content = f"""# {cn_name}
 
 先加载{cn_name}的人格和工作手册：
-1. 阅读 `~/.openclaw/agents/{slug}/agent/SOUL.md`（人格 + 方法论）
-2. 阅读 `~/.openclaw/agents/{slug}/agent/AGENTS.md`（工作手册）
-3. 阅读 `~/.openclaw/workspace/LESSONS.md`（团队经验教训，避免重复犯错）
-4. 阅读 `~/.openclaw/workspace/USER.md`（老板偏好，务必遵循）
+1. 阅读 `~/.agents/skills/role-{slug}/persona/SOUL.md`（人格 + 方法论）
+2. 阅读 `~/.agents/skills/role-{slug}/persona/AGENTS.md`（工作手册）
+3. 阅读 `~/knowledge-hub/wiki/团队经验教训.md`（团队经验教训，避免重复犯错）
+4. 阅读 `~/knowledge-hub/wiki/老板偏好.md`（老板偏好，务必遵循）
 
 以{cn_name}的角色身份工作，执行以下任务：
 
@@ -248,7 +248,7 @@ $ARGUMENTS
     cmd_file.write_text(cmd_content, encoding="utf-8")
     print(f"  写入: /{slug} 命令 → {cmd_file}")
 
-    print(f"  完成: {name} 已生成为 OpenClaw Agent")
+    print(f"  完成: {name} 已生成为角色 persona")
     print(f"  调用: 在 Claude Code 中输入 /{slug}")
 
 

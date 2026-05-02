@@ -14,8 +14,8 @@
 - `~/.claude/skills/`
 - `~/.claude/SKILLS_REGISTRY.md`
 - 常用项目 `.claude/skills/`
-- `~/knowledge-base/`
-- `~/knowledge-wikis/`
+- `~/knowledge-hub/wiki/`
+- `~/knowledge-hub/wiki/`
 
 ## Weekly Checklist
 
@@ -51,8 +51,8 @@
 
 检查：
 
-- 本周新增经验是否应进入 `knowledge-base`
-- 本周新增主题知识是否应进入 `knowledge-wikis`
+- 本周新增经验是否应进入 `~/knowledge-hub/wiki/`
+- 本周新增主题知识是否应进入 `~/knowledge-hub/wiki/`
 - 是否有本该进 wiki 的内容还留在聊天或项目文档中
 
 ### 5. Extraction Opportunities

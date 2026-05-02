@@ -22,23 +22,46 @@ export function buildTree(wikiRoot: string): TreeNode {
   return walk(wikiRoot, wikiDir, "wiki");
 }
 
+function readTitle(filePath: string, fallback: string): string {
+  try {
+    const content = fs.readFileSync(filePath, "utf-8");
+    const m = content.match(/^#\s+(.+)$/m);
+    if (m) return m[1]!.trim();
+  } catch {}
+  return fallback;
+}
+
+function isDir(full: string): boolean {
+  try {
+    return fs.statSync(full).isDirectory();
+  } catch {
+    return false;
+  }
+}
+
 function walk(wikiRoot: string, dir: string, rel: string): TreeNode {
   const entries = fs
     .readdirSync(dir, { withFileTypes: true })
     .filter((e) => !e.name.startsWith("."))
     .sort((a, b) => {
-      if (a.isDirectory() !== b.isDirectory()) return a.isDirectory() ? -1 : 1;
-      return a.name.localeCompare(b.name);
+      const aIsIndex = a.name === "index.md";
+      const bIsIndex = b.name === "index.md";
+      if (aIsIndex !== bIsIndex) return aIsIndex ? -1 : 1;
+      const aDir = isDir(path.join(dir, a.name));
+      const bDir = isDir(path.join(dir, b.name));
+      if (aDir !== bDir) return aDir ? -1 : 1;
+      return b.name.localeCompare(a.name);
     });
 
   const children: TreeNode[] = [];
   for (const e of entries) {
     const full = path.join(dir, e.name);
     const nodeRel = path.posix.join(rel, e.name);
-    if (e.isDirectory()) {
+    if (isDir(full)) {
       children.push(walk(wikiRoot, full, nodeRel));
     } else if (e.name.endsWith(".md")) {
-      children.push({ name: e.name.replace(/\.md$/, ""), path: nodeRel, kind: "file" });
+      const fallback = e.name.replace(/\.md$/, "");
+      children.push({ name: readTitle(full, fallback), path: nodeRel, kind: "file" });
     }
   }
 

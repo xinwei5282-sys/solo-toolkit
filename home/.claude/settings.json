@@ -1,0 +1,36 @@
+{
+  "model": "haiku",
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 /Users/weiran/knowledge-hub/search-experiences.py",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/weiran/.claude/hooks/memory-audit-check.sh",
+            "timeout": 3
+          }
+        ]
+      }
+    ]
+  },
+  "theme": "light",
+  "mcpServers": {
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "@playwright/mcp@latest"
+      ]
+    }
+  }
+}
